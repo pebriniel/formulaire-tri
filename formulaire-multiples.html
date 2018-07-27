@@ -10,7 +10,7 @@
         </style>
     </head>
     <body>
-        <table>
+        <table class="sort">
             <thead>
                 <tr>
                     <td>
@@ -60,35 +60,67 @@
                 </tr>
             </tbody>
         </table>
+        <table class="sort">
+            <thead>
+                <tr>
+                    <td>
+                        Prénom  <br/>
+                        <input type="text" data-column="0" id="prenom" name="prenom" value="">
+                    </td>
+                    <td>
+                        Nom  <br/>
+                        <input type="text" data-column="1" id="nom" name="nom" value="">
+                    </td>
+                    <td>
+                        Métier<br/>
+                        <input type="text" data-column="2" id="profession" name="profession" value="">
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Alexanre</td>
+                    <td>Astier</td>
+                    <td>Acteur</td>
+                </tr>
+                <tr>
+                    <td>Albus</td>
+                    <td>Dumbledore</td>
+                    <td>Personnage</td>
+                </tr>
+                <tr>
+                    <td>Roger</td>
+                    <td>Carel</td>
+                    <td>Acteur</td>
+                </tr>
+                <tr>
+                    <td>Arthur</td>
+                    <td>Pendragon</td>
+                    <td>Personnage</td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 
 
     <script type="text/javascript">
-        var inputs = [
-            'prenom',
-            'nom',
-            'profession'
-        ];
 
-        function search(input, test){
-            // Boucle de chaque input
-            //
-            var lines = document.querySelectorAll('tbody tr');
-            for(var i = 0; i < lines.length; i ++){
+        function search(tableaux){
+            tableaux.element.querySelectorAll('tbody tr').forEach(function(line){
                 count = 0;
                 count_input = 0;
-                columns = lines[i].querySelectorAll('td');
+                columns = line.querySelectorAll('td');
 
-                for(var x = 0; x < inputs.length; x ++){
-                    input = document.querySelector('#'+inputs[x]);
+                for(var x = 0; x < tableaux.inputs.length; x ++){
+                    input = tableaux.element.querySelector('#'+inputs[x]);
                     inputValue = input.value;
 
                     if(inputValue != ''){
                         count_input ++;
+
                         column_id = input.dataset.column;
-                        column = columns[column_id];
-                        chaineChamp = column.innerText;
-                        //
+                        chaineChamp = columns[column_id].innerText;
+
                         if(inputValue === chaineChamp.toLowerCase().substr(0, inputValue.length)){
                             count ++;
                         }
@@ -96,23 +128,24 @@
                 }
 
                 if(count == count_input){
-                    lines[i].style.display = "table-row";
+                    line.style.display = "table-row";
                 }
                 else{
-                    lines[i].style.display = "none";
+                    line.style.display = "none";
                 }
-            }
+            });
         }
 
-        inputs.forEach(function(value){
-            document.querySelector('#'+value).addEventListener("keyup", search, false);
+        document.querySelectorAll('.sort').forEach(function(element){
+            filtres_listes = {};
+            filtres_listes.element = element;
+            filtres_listes.inputs = element.querySelectorAll('thead input');
+            filtres_listes.lignes = element.querySelectorAll('tbody tr');
+
+            filtres_listes.inputs.forEach(function(input){
+                input.addEventListener("keyup", search.bind(null, filtres_listes), false)
+            })
         });
 
-        // console.log(event);
-        // console.log(value);
-        // lines = document.querySelector('tbody tr');
-        // for(var i = 0; i < lines.length; i ++){
-        //
-        // }
     </script>
 </html>
