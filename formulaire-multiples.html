@@ -14,16 +14,13 @@
             <thead>
                 <tr>
                     <td>
-                        Prénom  <br/>
-                        <input type="text" data-column="0" id="prenom" name="prenom" value="">
+                        <input type="text" data-column="0" placeholder="prenom">
                     </td>
                     <td>
-                        Nom  <br/>
-                        <input type="text" data-column="1" id="nom" name="nom" value="">
+                        <input type="text" data-column="1" placeholder="nom">
                     </td>
                     <td>
-                        Métier<br/>
-                        <input type="text" data-column="2" id="profession" name="profession" value="">
+                        <input type="text" data-column="2" placeholder="profession">
                     </td>
                 </tr>
             </thead>
@@ -44,11 +41,6 @@
                     <td>Ouvrier</td>
                 </tr>
                 <tr>
-                    <td>Julien</td>
-                    <td>Yarb</td>
-                    <td>Développeur</td>
-                </tr>
-                <tr>
                     <td>Gabriel</td>
                     <td>Lucien</td>
                     <td>Développeur</td>
@@ -61,24 +53,21 @@
             </tbody>
         </table>
 
-        
+
         <table class="sort">
             <thead>
                 <tr>
                     <td>
-                        Prénom  <br/>
-                        <input type="text" data-column="0" id="firstname" name="prenom" value="">
+                        <input type="text" data-column="0" placeholder="prenom">
                     </td>
                     <td>
-                        Nom  <br/>
-                        <input type="text" data-column="1" id="lastname" name="nom" value="">
+                        <input type="text" data-column="1" placeholder="nom">
                     </td>
                     <td>
                         Type<br/>
                     </td>
                     <td>
-                        ???<br/>
-                        <input type="text" data-column="3" id="type" name="profession" value="">
+                        <input type="text" data-column="3" placeholder="type">
                     </td>
                 </tr>
             </thead>
@@ -115,26 +104,22 @@
     <script type="text/javascript">
 
         function search(tableaux){
-            tableaux.element.querySelectorAll('tbody tr').forEach(function(line){
+            tableaux.element.querySelectorAll('tbody tr').forEach((line) => {
                 count = 0;
                 count_input = 0;
                 columns = line.querySelectorAll('td');
 
-                for(var x = 0; x < tableaux.inputs.length; x ++){
-                    input = tableaux.inputs[x];
+                tableaux.inputs.forEach((input) => {
                     inputValue = input.value;
-
                     if(inputValue != ''){
                         count_input ++;
 
-                        column_id = input.dataset.column;
-                        chaineChamp = columns[column_id].innerText;
-
+                        chaineChamp = columns[input.dataset.column].innerText;
                         if(inputValue === chaineChamp.toLowerCase().substr(0, inputValue.length)){
                             count ++;
                         }
                     }
-                }
+                })
 
                 if(count == count_input){
                     line.style.display = "table-row";
@@ -145,13 +130,13 @@
             });
         }
 
-        document.querySelectorAll('.sort').forEach(function(element){
+        document.querySelectorAll('.sort').forEach((element) => {
             filtres_listes = {};
             filtres_listes.element = element;
             filtres_listes.inputs = element.querySelectorAll('thead input');
             filtres_listes.lignes = element.querySelectorAll('tbody tr');
 
-            filtres_listes.inputs.forEach(function(input){
+            filtres_listes.inputs.forEach((input) => {
                 input.addEventListener("keyup", search.bind(null, filtres_listes), false)
             })
         });
