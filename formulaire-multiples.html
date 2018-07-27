@@ -60,43 +60,52 @@
                 </tr>
             </tbody>
         </table>
+
+        
         <table class="sort">
             <thead>
                 <tr>
                     <td>
                         Prénom  <br/>
-                        <input type="text" data-column="0" id="prenom" name="prenom" value="">
+                        <input type="text" data-column="0" id="firstname" name="prenom" value="">
                     </td>
                     <td>
                         Nom  <br/>
-                        <input type="text" data-column="1" id="nom" name="nom" value="">
+                        <input type="text" data-column="1" id="lastname" name="nom" value="">
                     </td>
                     <td>
-                        Métier<br/>
-                        <input type="text" data-column="2" id="profession" name="profession" value="">
+                        Type<br/>
+                    </td>
+                    <td>
+                        ???<br/>
+                        <input type="text" data-column="3" id="type" name="profession" value="">
                     </td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Alexanre</td>
+                    <td>Alexandre</td>
                     <td>Astier</td>
                     <td>Acteur</td>
+                    <td>Série</td>
                 </tr>
                 <tr>
                     <td>Albus</td>
                     <td>Dumbledore</td>
                     <td>Personnage</td>
+                    <td>Livre</td>
                 </tr>
                 <tr>
                     <td>Roger</td>
                     <td>Carel</td>
                     <td>Acteur</td>
+                    <td>Films</td>
                 </tr>
                 <tr>
                     <td>Arthur</td>
                     <td>Pendragon</td>
                     <td>Personnage</td>
+                    <td>Livre</td>
                 </tr>
             </tbody>
         </table>
@@ -112,7 +121,7 @@
                 columns = line.querySelectorAll('td');
 
                 for(var x = 0; x < tableaux.inputs.length; x ++){
-                    input = tableaux.element.querySelector('#'+inputs[x]);
+                    input = tableaux.inputs[x];
                     inputValue = input.value;
 
                     if(inputValue != ''){
